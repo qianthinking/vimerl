@@ -1,11 +1,8 @@
 #!/usr/bin/env escript
 
 main([Filename]) ->
-    main([Filename, ""]);
-main([Filename,Includes]) ->
     Dir = filename:dirname(Filename),
-    Inc = string:tokens(Includes, ":"),
-    InitOptions = [strong_validation,
+    Options = [strong_validation,
         warn_export_all,
         warn_export_vars,
         warn_shadow_vars,
@@ -15,7 +12,4 @@ main([Filename,Includes]) ->
         {i, "include"}, {i, "../include"},
         {i, Dir ++ "/include"}, {i, Dir ++ "/../include"},
         {d, 'TEST'}, {d, 'DEBUG'}],
-    Options = lists:foldl(fun(Path, Paths) ->
-                [ {i, Path ++ "/include"} | [{i, Path} | Paths]]
-        end, InitOptions, Inc),
     compile:file([Filename], Options).

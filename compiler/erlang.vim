@@ -34,7 +34,7 @@ function! s:ShowErrors()
     if match(getline(1), "#!.*escript") != -1
         setlocal makeprg=escript\ -s\ %
     else
-        execute "setlocal makeprg=" . s:erlang_check_file . "\\ \%\\ " . $VIMERL_INCLUDE
+        execute "setlocal makeprg=" . s:erlang_check_file . "\\ \%"
     endif
     silent make!
     call s:ClearErrors()
